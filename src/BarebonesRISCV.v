@@ -22,31 +22,31 @@
 
 module tt_um_BarebonesRISCVKailanBugata(
     input clk,
-    input rst,
+    input rst,//tiny tapeout uses neg reset!!!
     input valid_inst,
-    input [16:0] instruction_i,
+    input [13:0] instruction_i,
     
     output [7:0] rs1data_o, rs2data_o, 
-    output [3:0] imm_o,
+    output [2:0] imm_o,
     output [3:0] ALUOp_o,
     output ALUSrc_o
     
 
     );
     
-    wire [16:0] inst_w;
+    wire [13:0] inst_w;
     
     
-    DFF #(.width_p(17)) instPipeline
+    DFF #(.width_p(14)) instPipeline
     (
     .clk(clk),
-    .rst(rst),
+    .rst(~rst),
     .data_i(instruction_i),
     .valid_i(valid_inst),
     .data_o(inst_w)
     );
     
-    wire [3:0] rd,rs1,rs2;              
+    wire [2:0] rd,rs1,rs2;              
     wire [3:0] opcode;                      
     wire I_Type;   
     
@@ -60,7 +60,7 @@ module tt_um_BarebonesRISCVKailanBugata(
     .I_Type(I_Type)
     );
     
-    wire [3:0] const;
+    wire [2:0] const;
     immediateParser getimm
     (
     .Instruction(inst_w),
@@ -82,7 +82,7 @@ module tt_um_BarebonesRISCVKailanBugata(
     SmallAsyncRam Regist
     (
     .clk(clk),
-    .rst(rst),
+    .rst(~rst),
     .wr_valid_i(1'b0),
     .wr_data_i(0),
     .wr_addr_i(rd),
@@ -96,7 +96,7 @@ module tt_um_BarebonesRISCVKailanBugata(
      DFF #(.width_p(8)) rs1Pipeline
     (
     .clk(clk),
-    .rst(rst),
+    .rst(~rst),
     .data_i(rs1_data),
     .valid_i(1'b1),
     .data_o(rs1data_o)
@@ -105,16 +105,16 @@ module tt_um_BarebonesRISCVKailanBugata(
     DFF #(.width_p(8)) rs2Pipeline
     (
     .clk(clk),
-    .rst(rst),
+    .rst(~rst),
     .data_i(rs2_data),
     .valid_i(1'b1),
     .data_o(rs2data_o)
     );
     
-    DFF #(.width_p(4)) immPipeline
+    DFF #(.width_p(3)) immPipeline
     (
     .clk(clk),
-    .rst(rst),
+    .rst(~rst),
     .data_i(const),
     .valid_i(1'b1),
     .data_o(imm_o)
@@ -123,7 +123,7 @@ module tt_um_BarebonesRISCVKailanBugata(
     DFF #(.width_p(4)) ALUoppipeline
     (
     .clk(clk),
-    .rst(rst),
+    .rst(~rst),
     .data_i(ALUOp),
     .valid_i(1'b1),
     .data_o(ALUOp_o)
@@ -133,7 +133,7 @@ module tt_um_BarebonesRISCVKailanBugata(
     DFF #(.width_p(1)) ALUsrcipeline
     (
     .clk(clk),
-    .rst(rst),
+    .rst(~rst),
     .data_i(ALUSrc),
     .valid_i(1'b1),
     .data_o(ALUSrc_o)
@@ -145,3 +145,4 @@ module tt_um_BarebonesRISCVKailanBugata(
     
     
 endmodule
+
