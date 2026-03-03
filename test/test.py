@@ -6,6 +6,29 @@ from cocotb.clock import Clock
 from cocotb.triggers import ClockCycles
 
 
+def encode_r(rs2, rs1, rd, opcode):
+    return ((rs2 & 7) << 11 |
+            (rs1 & 7) << 8  |
+            (rd  & 7) << 5  |
+            (opcode & 0xF) << 1 |
+            1)
+
+
+def encode_i(imm, rs1, rd, opcode):
+    return ((imm & 7) << 11 |
+            (rs1 & 7) << 8  |
+            (rd  & 7) << 5  |
+            (opcode & 0xF) << 1 |
+            0)
+
+
+def drive_instruction(dut, inst, valid=1):
+    lower = inst & 0x7F
+    upper = (inst >> 7) & 0x7F
+    dut.ui_in.value = (valid & 1) | (lower << 1)
+    dut.uio_in.value = upper
+
+
 @cocotb.test()
 async def test_project(dut):
     dut._log.info("Start")
@@ -41,20 +64,34 @@ async def test_project(dut):
 
     dut._log.info("Test project behavior")
 
-    # Set the input values you want to test
-    dut.ui_in.value = 67  # {Instruction[6:0], valid_inst} = {01_0000_1, 1} = 
-    dut.uio_in.value = 97 # {Instruction[13:7]} = uion in {0_110_000_1} = 
-    # valid_inst = 1;
-    # instruction_i = 14'b110_000_101_0000_1; //add x5, x0, x6   //strike up the pipeline
 
-    # Wait for one clock cycle to see the output values
-    await ClockCycles(dut.clk, 2)
 
-    # The following assersion is just an example of how to check the output values.
-    # Change it to match the actual expected output of your module:
-    #if((rs2data_o !== 8'h6) || (rs1data_o !== 8'h0) || (imm_o !== 3'b0) || (ALUOp_o !== 4'b0000) || (ALUSrc_o !== 1'b1)) begin
-    assert dut.uo_out.value == 0  #{0, ALUOp_o, imm_o} = {0, 0000, 000}
-    assert dut.uio_out.value == 128  #{ALU SRC 0000000} = 1000000
+    # --- Instruction 1 ---
+    inst1 = encode_r(rs2=6, rs1=0, rd=5, opcode=0)  # add
+    drive_instruction(dut, inst1)
 
-    # Keep testing the module by changing the input values, waiting for
-    # one or more clock cycles, and asserting the expected output values.
+    await RisingEdge(dut.clk)
+    await FallingEdge(dut.clk)
+
+    # --- Instruction 2 ---
+    inst2 = encode_i(imm=0, rs1=3, rd=1, opcode=2)  # ori
+    drive_instruction(dut, inst2)
+
+    await RisingEdge(dut.clk)
+    await FallingEdge(dut.clk)
+
+    # Now check internal signals hierarchically
+    assert dut.RISCProject.rs2data_o.value == 0x6
+    assert dut.RISCProject.rs1data_o.value == 0x0
+
+    # Check outputs exposed at top
+    imm = dut.uo_out.value & 0x7
+    aluop = (dut.uo_out.value >> 3) & 0xF
+    alusrc = dut.uio_out[7].value
+
+    assert imm == 0
+    assert aluop == 0
+    assert alusrc == 1
+
+    dut._log.info("Test passed!")
+
