@@ -82,8 +82,8 @@ async def test_project(dut):
     await FallingEdge(dut.clk)
 
     # Now check internal signals hierarchically
-    assert dut.tt_um_BarebonesRISCVKailanBugata.rs2data_o.value == 0x6
-    assert dut.tt_um_BarebonesRISCVKailanBugata.rs1data_o.value == 0x0
+    assert dut.user_project.RISCProject.rs2data_o.value == 0x6
+    assert dut.user_project.RISCProject.rs1data_o.value == 0x0
 
     # Check outputs exposed at top
     imm = dut.uo_out.value & 0x7
