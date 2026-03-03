@@ -87,9 +87,10 @@ async def test_project(dut):
 
     # Check outputs exposed at top
     uo = int(dut.uo_out.value)
+    uio = int(dut.uio_out.value)
     imm    =  uo & 0x7
     aluop  = (uo >> 3) & 0xF
-    alusrc = int(dut.uio_out[7].value)
+    alusrc = (uio >> 7) & 0x1
     
     assert imm == 0
     assert aluop == 0
