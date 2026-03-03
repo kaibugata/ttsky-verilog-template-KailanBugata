@@ -17,7 +17,7 @@ module tt_RISCVTop (
     .rst(rst_n),//tiny tapeout uses neg reset!!!
     .valid_inst(ui_in[0]),
     .instruction_i({uio_in[6:0],ui_in[7:1]}),
-    .rs1data_o()
+    .rs1data_o(),
     .rs2data_o(), 
     .imm_o(uo_out[2:0]),
     .ALUOp_o(uo_out[6:3]),
