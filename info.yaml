@@ -17,40 +17,45 @@ project:
   # Source files must be in ./src and you must list each source file separately, one per line.
   # Don't forget to also update `PROJECT_SOURCES` in test/Makefile.
   source_files:
-    - "project.v"
+    - "BarebonesRISCV.v"
+    - "SmallAsyncRam.v"
+    - "Control.v"
+    - "DFF.v"
+    - "Instruction_Parser.v"
+    - "immediateParser.v"
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
 # This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).
 pinout:
   # Inputs
-  ui[0]: ""
-  ui[1]: ""
-  ui[2]: ""
-  ui[3]: ""
-  ui[4]: ""
-  ui[5]: ""
-  ui[6]: ""
-  ui[7]: ""
+  ui[0]: "valid_inst"
+  ui[1]: "intruction_i[0]"
+  ui[2]: "intruction_i[1]"
+  ui[3]: "intruction_i[2]"
+  ui[4]: "intruction_i[3]"
+  ui[5]: "intruction_i[4]"
+  ui[6]: "intruction_i[5]"
+  ui[7]: "intruction_i[6]"
 
   # Outputs
-  uo[0]: ""
-  uo[1]: ""
-  uo[2]: ""
-  uo[3]: ""
-  uo[4]: ""
-  uo[5]: ""
-  uo[6]: ""
+  uo[0]: "imm_o[0]"
+  uo[1]: "imm_o[1]"
+  uo[2]: "imm_o[2]"
+  uo[3]: "ALUOp_o[0]"
+  uo[4]: "ALUOp_o[1]"
+  uo[5]: "ALUOp_o[2]"
+  uo[6]: "ALUOp_o[3]"
   uo[7]: ""
 
   # Bidirectional pins
-  uio[0]: ""
-  uio[1]: ""
-  uio[2]: ""
-  uio[3]: ""
-  uio[4]: ""
-  uio[5]: ""
-  uio[6]: ""
-  uio[7]: ""
+  uio[0]: "intruction_i[7]"
+  uio[1]: "intruction_i[8]"
+  uio[2]: "intruction_i[9]"
+  uio[3]: "intruction_i[10]"
+  uio[4]: "intruction_i[11]"
+  uio[5]: "intruction_i[12]"
+  uio[6]: "intruction_i[13]"
+  uio[7]: "ALUSrc_o"
 
 # Do not change!
 yaml_version: 6
