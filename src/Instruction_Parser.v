@@ -21,8 +21,8 @@
 
 
 module Instruction_Parser (
-    input [16:0] Instruction,
-    output reg [3:0] rd,rs1,rs2,
+    input [13:0] Instruction,
+    output reg [2:0] rd,rs1,rs2,
     output reg [3:0] opcode,
     output reg I_Type
 );
@@ -31,9 +31,9 @@ module Instruction_Parser (
 always@(*) begin
     //Key: I: 0x0, R:0x1
     I_Type = Instruction[0];
-    rd = Instruction[8:5];
-    rs1 = Instruction[12:9];
-    rs2 = Instruction[16:13];
+    rd = Instruction[7:5];
+    rs1 = Instruction[10:8];
+    rs2 = Instruction[13:11];
     opcode = Instruction[4:1];
  
  end
