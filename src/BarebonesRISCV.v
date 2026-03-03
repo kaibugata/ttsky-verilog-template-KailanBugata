@@ -60,12 +60,12 @@ module tt_um_BarebonesRISCVKailanBugata(
     .I_Type(I_Type)
     );
     
-    wire [2:0] const;
+    wire [2:0] const_w;
     immediateParser getimm
     (
     .Instruction(inst_w),
     .I_Type(I_Type),
-    .constant(const)
+    .constant(const_w)
     );
     
     wire [3:0] ALUOp;
@@ -115,7 +115,7 @@ module tt_um_BarebonesRISCVKailanBugata(
     (
     .clk(clk),
     .rst(~rst),
-    .data_i(const),
+    .data_i(const_w),
     .valid_i(1'b1),
     .data_o(imm_o)
     );
