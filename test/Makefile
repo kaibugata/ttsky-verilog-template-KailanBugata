@@ -6,7 +6,7 @@ SIM ?= icarus
 FST ?= -fst # Use more efficient FST format
 TOPLEVEL_LANG ?= verilog
 SRC_DIR = $(PWD)/../src
-PROJECT_SOURCES = BarebonesRISCV.v, Control.v, DFF.v, Instruction_Parser.v, SmallAsyncRam.v, immediateParser.v
+PROJECT_SOURCES = BarebonesRISCV.v Control.v DFF.v Instruction_Parser.v SmallAsyncRam.v immediateParser.v
 
 ifneq ($(GATES),yes)
 
