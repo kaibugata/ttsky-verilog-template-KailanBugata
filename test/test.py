@@ -86,10 +86,11 @@ async def test_project(dut):
     assert dut.user_project.RISCProject.rs1data_o.value == 0x0
 
     # Check outputs exposed at top
-    imm = dut.uo_out.value & 0x7
-    aluop = (dut.uo_out.value >> 3) & 0xF
-    alusrc = dut.uio_out[7].value
-
+    uo = int(dut.uo_out.value)
+    imm    =  uo & 0x7
+    aluop  = (uo >> 3) & 0xF
+    alusrc = int(dut.uio_out[7].value)
+    
     assert imm == 0
     assert aluop == 0
     assert alusrc == 1
