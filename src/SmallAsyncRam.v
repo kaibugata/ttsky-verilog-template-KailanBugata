@@ -23,7 +23,7 @@
 module SmallAsyncRam #(
 
     parameter  DataWidth = 8,
-    parameter  NumEntries = 16
+    parameter  NumEntries = 8
 ) (
     input   clk,
     input   rst,
@@ -60,14 +60,6 @@ module SmallAsyncRam #(
             mem[5]  <= 8'h5;
             mem[6]  <= 8'h6;
             mem[7]  <= 8'h7;
-            mem[8]  <= 8'h8;
-            mem[9]  <= 8'h9;
-            mem[10] <= 8'hA;
-            mem[11] <= 8'hB;
-            mem[12] <= 8'hC;
-            mem[13] <= 8'hD;
-            mem[14] <= 8'hE;
-            mem[15] <= 8'hF;
         end else begin
         if(wr_valid_i) begin
           
