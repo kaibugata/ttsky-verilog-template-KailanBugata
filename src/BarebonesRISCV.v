@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module BarebonesRISCV(
+module tt_um_BarebonesRISCVKailanBugata(
     input clk,
     input rst,
     input valid_inst,
