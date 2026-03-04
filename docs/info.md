@@ -18,6 +18,7 @@ Due to the pin constraints of this project, my instruction is limited to 14 bit 
 Below is a table showing where bits of the instruction are assigned.
 
 |rs2/imm| rs1 | rd | opcode | Inst Type |
+|-------|-----|----|--------|-----------|
 |inst(13:11)|inst(10:8)|inst(7:5)|inst(4:1)|inst(0)|
 
 For I-type instructions where an immediate is needed, the rs2 bits are also immediate bits.
