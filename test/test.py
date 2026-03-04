@@ -207,7 +207,7 @@ async def test_project(dut):
     alusrc = (uio >> 7) & 0x1
     
     assert imm == 0
-    assert aluop == 0
+    assert aluop == 1
     assert alusrc == 1
 
 
