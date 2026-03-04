@@ -10,7 +10,7 @@ You can also include images in this folder and reference them in the markdown. E
 ## How it works
 
 This project is based on a RISCV 5 Stage Processor that I designed last summer. The github link for that is: https://github.com/kaibugata/RISCV_PIPELINE_CPU_KB-
-However instead of making a full RISC Processor again, this TT project is a barebones version of my RISCV Processor with a few modifications of my choice.
+However instead of making a full RISC Processor again, this TT project is a barebones version of my RISCV Processor with a few modifications of my choice. These changes are listed below.
 
 ### Instructions
 
