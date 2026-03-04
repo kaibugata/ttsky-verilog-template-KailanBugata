@@ -279,7 +279,7 @@ async def test_project(dut):
     dut._log.info("Start valid instruction pass")
 
 
-    inst10 = encode_r(imm=4, rs1=7, rd=7, opcode=15)  #bad instruction opcode bade
+    inst10 = encode_r(rs2=4, rs1=7, rd=7, opcode=15)  #bad instruction opcode bade
     drive_instruction(dut, inst9, 0) #not valid inst so shouldnt pass
 
     await RisingEdge(dut.clk)
