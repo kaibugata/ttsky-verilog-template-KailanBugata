@@ -25,6 +25,17 @@ For I-type instructions where an immediate is needed, the rs2 bits are also imme
 Instruction Type is dictated by the LSB which is 0 for I-Type inst and 1 for R-Type inst.
 
 
+### Opcodes
+
+For this ISA there is 18 diffrerent instructions that can be done. 9 R-type and 9 I-type. For each instruction, the immidiate equaivalent instruction has the same opcode.
+For example the opcode for add is 0000. Meanwhile the opcode for addi is also 0000. This applies to all instructions. A table of opcodes is shown below.
+
+|0000| 0001 | 0010 | 0011 | 0100 |0101| 0110 | 0111 | 1000 |
+|-------|-----|----|--------|-----|------|-------|-----|----|
+|add(i)|and(i)|or(i)|sll(i)|slt(i)|srl(i)|sub(i)|xor(i)|sgt(i)|
+|addition|bitwise and|bitwise or|shift left logical|set less than|shift right logical|subtraction)|xor operation|set greater than|
+
+
 
 ## How to test
 
